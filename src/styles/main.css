@@ -56,6 +56,10 @@ body {
   margin-right: 0.5rem;
 }
 
+.fa-user-circle {
+  margin-right: 0.3em;
+}
+
 .main-nav-item:hover {
   text-decoration: underline;
 }
@@ -71,7 +75,7 @@ body {
 }
 
 .hero {
-  background-image: url('../img/bank-tree.jpeg');
+  background-image: url('../assets/images/bank-tree.jpeg');
   background-position: 0 -50px;
   background-size: cover;
   background-repeat: no-repeat;
