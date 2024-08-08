@@ -4,10 +4,10 @@ import Nav from "../components/Nav"
 import Footer from "../components/Footer"
 import Account from "../components/Account"
 
-const Home = () => {
+const User = () => {
   return (
     <Fragment>
-      <Title title={"Argent Bank - Home Page"} />
+      <Title title={"Argent Bank - User Page"} />
       <Nav />
       <main className="main bg-dark">
         <Account />
@@ -17,4 +17,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default User

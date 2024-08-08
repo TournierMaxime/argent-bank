@@ -1,10 +1,23 @@
 import { BrowserRouter as Router, Routes } from "react-router-dom"
 import CommonRoutes from "./router/CommonRoutes"
 import AuthenticatedRoutes from "./router/AuthenticatedRoutes"
-import React, { Fragment } from "react"
+import React, { Fragment, useEffect } from "react"
+import { connect, Provider } from "react-redux"
+import store from "./redux/store"
+import useUserData from "./hooks/useUserData"
 
-function App() {
-  let isAuthenticated = false
+function App({ isAuthenticated, onLoginSuccess }) {
+  const { getUserData } = useUserData({
+    onLoginSuccess,
+  })
+
+  useEffect(() => {
+    getUserData()
+  }, [])
+
+  console.log("isAuthenticated", isAuthenticated)
+  console.log(process.env.REACT_APP_API)
+
   return (
     <Fragment>
       <Router>
@@ -18,4 +31,23 @@ function App() {
   )
 }
 
-export default App
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.login.isAuthenticated,
+  data: state.login.data,
+})
+
+const login = (dispatch) => ({
+  onLoginSuccess: (response) => {
+    dispatch({ type: "LOGIN_USER_SUCCESS", payload: response })
+  },
+})
+
+const ConnectedApp = connect(mapStateToProps, login)(App)
+
+const AppWithRedux = () => (
+  <Provider store={store}>
+    <ConnectedApp />
+  </Provider>
+)
+
+export default AppWithRedux

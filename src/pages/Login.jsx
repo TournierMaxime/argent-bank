@@ -4,10 +4,10 @@ import Nav from "../components/Nav"
 import Footer from "../components/Footer"
 import LoginForm from "../components/LoginForm"
 
-const Home = () => {
+const Login = () => {
   return (
     <Fragment>
-      <Title title={"Argent Bank - Home Page"} />
+      <Title title={"Argent Bank - Login Page"} />
       <Nav />
       <main>
         <LoginForm />
@@ -17,4 +17,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Login
