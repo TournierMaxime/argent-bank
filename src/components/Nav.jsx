@@ -1,9 +1,12 @@
 import React, { Fragment } from "react"
 import Logo from "../assets/images/argentBankLogo.png"
 import { useSelector } from "react-redux"
+import useHandleAuth from "../hooks/useHandleAuth"
 
 const Nav = () => {
   const isAuthenticated = useSelector((state) => state.login.isAuthenticated)
+
+  const { handleLogout } = useHandleAuth({ data: null })
   return (
     <nav className="main-nav">
       <a className="main-nav-logo" href="/">
@@ -21,7 +24,11 @@ const Nav = () => {
               <i className="fa fa-user-circle"></i>
               Tony
             </a>
-            <a className="main-nav-item" href="/">
+            <a
+              className="main-nav-item"
+              onClick={() => handleLogout()}
+              href="/"
+            >
               <i className="fa fa-sign-out"></i>
               Sign Out
             </a>

@@ -15,9 +15,6 @@ function App({ isAuthenticated, onLoginSuccess }) {
     getUserData()
   }, [])
 
-  console.log("isAuthenticated", isAuthenticated)
-  console.log(process.env.REACT_APP_API)
-
   return (
     <Fragment>
       <Router>
