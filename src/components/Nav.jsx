@@ -1,8 +1,9 @@
 import React, { Fragment } from "react"
 import Logo from "../assets/images/argentBankLogo.png"
+import { useSelector } from "react-redux"
 
 const Nav = () => {
-  let isAuthenticated = false
+  const isAuthenticated = useSelector((state) => state.login.isAuthenticated)
   return (
     <nav className="main-nav">
       <a className="main-nav-logo" href="/">
@@ -16,11 +17,11 @@ const Nav = () => {
       <div>
         {isAuthenticated ? (
           <Fragment>
-            <a className="main-nav-item" href="./user.html">
+            <a className="main-nav-item" href="/user">
               <i className="fa fa-user-circle"></i>
               Tony
             </a>
-            <a className="main-nav-item" href="./index.html">
+            <a className="main-nav-item" href="/">
               <i className="fa fa-sign-out"></i>
               Sign Out
             </a>

@@ -1,13 +1,14 @@
 import React, { Fragment } from "react"
 import User from "../pages/User"
+import Home from "../pages/Home"
 import { Route } from "react-router-dom"
 
 const AuthenticatedRoutes = () => {
   const routes = [
     {
       path: "/",
-      name: "User",
-      element: <User />,
+      name: "Home",
+      element: <Home />,
     },
     {
       path: "/user",
