@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux"
-import { login } from "../redux/actions/auth"
+import { login, logout } from "../redux/actions/auth"
 import { useNavigate } from "react-router-dom"
 
 const useHandleAuth = ({ data }) => {
@@ -15,7 +15,16 @@ const useHandleAuth = ({ data }) => {
       console.log(error)
     }
   }
-  return { handleLogin }
+
+  const handleLogout = async () => {
+    try {
+      await dispatch(logout())
+      navigate("/")
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  return { handleLogin, handleLogout }
 }
 
 export default useHandleAuth
