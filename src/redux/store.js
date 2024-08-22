@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit"
 import { thunk as thunkMiddleware } from "redux-thunk"
-import { authReducers } from "./index"
+import { authReducers, userReducers } from "./index"
 
 const createBaseStore = (reducers) => {
   const store = configureStore({
@@ -15,7 +15,7 @@ const createBaseStore = (reducers) => {
   return store
 }
 
-const rootReducer = { ...authReducers }
+const rootReducer = { ...authReducers, ...userReducers }
 
 const store = createBaseStore(rootReducer)
 

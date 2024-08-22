@@ -3,6 +3,7 @@ const initialState = {
   loading: false,
   data: {
     token: null,
+    accountData: [{}],
   },
   error: null,
 }
@@ -15,11 +16,33 @@ const loginReducer = (state = initialState, action) => {
         loading: true,
       }
     case "LOGIN_USER_SUCCESS":
-      localStorage.setItem("userData", JSON.stringify(action.payload))
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({ token: action.payload.token }),
+      )
       return {
         ...state,
         loading: false,
-        data: action.payload,
+        data: {
+          token: action.payload.token,
+          accountData: [
+            {
+              title: "Argent Bank Checking (x8349)",
+              amount: "$2,082.79",
+              description: "Available Balance",
+            },
+            {
+              title: "Argent Bank Savings (x6712)",
+              amount: "$10,928.42",
+              description: "Available Balance",
+            },
+            {
+              title: "Argent Bank Credit Card (x8349)",
+              amount: "$184.30",
+              description: "Current Balance",
+            },
+          ],
+        },
         isAuthenticated: true,
       }
     case "LOGIN_USER_FAILURE":

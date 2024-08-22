@@ -24,4 +24,10 @@ const login = (data) => async (dispatch) => {
   }
 }
 
-export { login }
+const logout = () => async (dispatch) => {
+  dispatch({
+    type: "LOGOUT_USER_SUCCESS",
+  })
+}
+
+export { login, logout }
