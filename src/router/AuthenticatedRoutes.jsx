@@ -1,6 +1,7 @@
 import React, { Fragment } from "react"
 import User from "../pages/User"
 import Home from "../pages/Home"
+import Error from "../pages/Error"
 import { Route } from "react-router-dom"
 
 const AuthenticatedRoutes = () => {
@@ -14,6 +15,11 @@ const AuthenticatedRoutes = () => {
       path: "/user",
       name: "User",
       element: <User />,
+    },
+    {
+      path: "*",
+      name: "Error",
+      element: <Error />,
     },
   ]
 

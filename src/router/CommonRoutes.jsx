@@ -1,6 +1,7 @@
 import React, { Fragment } from "react"
 import Home from "../pages/Home"
 import Login from "../pages/Login"
+import Error from "../pages/Error"
 import { Route } from "react-router-dom"
 
 const CommonRoutes = () => {
@@ -14,6 +15,11 @@ const CommonRoutes = () => {
       path: "/sign-in",
       name: "Login",
       element: <Login />,
+    },
+    {
+      path: "*",
+      name: "Error",
+      element: <Error />,
     },
   ]
 
