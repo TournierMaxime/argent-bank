@@ -6,13 +6,17 @@ const Login = async (data) => {
 }
 
 const OneUser = (token) => {
-  return http.post(`/user/profile`, {
-    headers: { Authorization: `Bearer ${token}` },
-  })
+  return http.post(
+    `/user/profile`,
+    {},
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  )
 }
 
-const UpdateUser = (token) => {
-  return http.put(`/user/profile`, {
+const UpdateUser = (data, token) => {
+  return http.put(`/user/profile`, data, {
     headers: { Authorization: `Bearer ${token}` },
   })
 }
