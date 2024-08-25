@@ -3,6 +3,7 @@ const initialState = {
   loading: false,
   data: {
     token: null,
+    firstName: "",
     accountData: [{}],
   },
   error: null,
@@ -18,13 +19,17 @@ const loginReducer = (state = initialState, action) => {
     case "LOGIN_USER_SUCCESS":
       localStorage.setItem(
         "userData",
-        JSON.stringify({ token: action.payload.token }),
+        JSON.stringify({
+          token: action.payload.token,
+          firstName: action.payload.firstName,
+        }),
       )
       return {
         ...state,
         loading: false,
         data: {
           token: action.payload.token,
+          firstName: action.payload.firstName,
           accountData: [
             {
               title: "Argent Bank Checking (x8349)",

@@ -1,13 +1,17 @@
-import { Login } from "../../services/users.js"
+import { Login, OneUser } from "../../services/users.js"
 
 const login = (data) => async (dispatch) => {
   try {
     dispatch({ type: "LOGIN_USER_REQUEST" })
     const response = await Login(data)
 
+    const userResponse = await OneUser(response.data.body.token)
+
     const payload = {
       token: response.data.body.token,
+      firstName: userResponse.data.body.firstName,
     }
+
     dispatch({
       type: "LOGIN_USER_SUCCESS",
       payload,

@@ -5,6 +5,7 @@ import useHandleAuth from "../hooks/useHandleAuth"
 
 const Nav = () => {
   const isAuthenticated = useSelector((state) => state.login.isAuthenticated)
+  const firstName = useSelector((state) => state.login.data.firstName)
 
   const { handleLogout } = useHandleAuth({ data: null })
   return (
@@ -22,7 +23,7 @@ const Nav = () => {
           <Fragment>
             <a className="main-nav-item" href="/user">
               <i className="fa fa-user-circle"></i>
-              Tony
+              {firstName}
             </a>
             <a
               className="main-nav-item"

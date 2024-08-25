@@ -10,36 +10,32 @@ const Account = () => {
   const accountData = useSelector((state) => state.login.data.accountData)
   const userData = useSelector((state) => state.oneUser.data)
 
-  console.log(token)
-
   const firstName = userData?.firstName
   const lastName = userData?.lastName
 
   const { handleUpdateUser } = useUserUpdate({ data: userData })
 
+  useEffect(() => {
+    dispatch(oneUser(token))
+  }, [token, dispatch])
+
   const fetchData = () => {
     return (
       accountData &&
-      accountData.map((data, index) => {
-        return (
-          <section key={index} className="account">
-            <div className="account-content-wrapper">
-              <h3 className="account-title">{data.title}</h3>
-              <p className="account-amount">{data.amount}</p>
-              <p className="account-amount-description">{data.description}</p>
-            </div>
-            <div className="account-content-wrapper cta">
-              <button className="transaction-button">View transactions</button>
-            </div>
-          </section>
-        )
-      })
+      accountData.map((data, index) => (
+        <section key={index} className="account">
+          <div className="account-content-wrapper">
+            <h3 className="account-title">{data.title}</h3>
+            <p className="account-amount">{data.amount}</p>
+            <p className="account-amount-description">{data.description}</p>
+          </div>
+          <div className="account-content-wrapper cta">
+            <button className="transaction-button">View transactions</button>
+          </div>
+        </section>
+      ))
     )
   }
-
-  useEffect(() => {
-    dispatch(oneUser(token))
-  }, [token])
 
   return (
     <Fragment>
@@ -49,7 +45,7 @@ const Account = () => {
           <br />
           {firstName} {lastName}!
         </h1>
-        <button className="edit-button" onClick={() => handleUpdateUser()}>
+        <button className="edit-button" onClick={handleUpdateUser}>
           Edit Name
         </button>
       </div>
