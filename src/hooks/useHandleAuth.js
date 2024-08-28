@@ -23,6 +23,7 @@ const useHandleAuth = ({ data }) => {
       navigate("/profile")
     } catch (error) {
       console.log(error)
+      setMessage({ error: error.response.data.message })
     }
   }
 

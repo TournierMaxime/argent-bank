@@ -18,7 +18,6 @@ const Account = () => {
     firstName: "",
     lastName: "",
   })
-  console.log(userData)
 
   const { handleUpdateUser, message } = useUserUpdate({
     data: user,
@@ -105,6 +104,7 @@ const Account = () => {
         <h2>Edit Name</h2>
         <form onSubmit={handleSubmit}>
           <Input
+            divName={"input-wrapper"}
             htmlFor={"firstName"}
             label={"Prénom"}
             type={"text"}
@@ -114,6 +114,7 @@ const Account = () => {
             setData={setUser}
           />
           <Input
+            divName={"input-wrapper"}
             htmlFor={"lastName"}
             label={"Nom"}
             type={"text"}

@@ -1,14 +1,18 @@
-const useOnChange = ({ data, setData }) => {
-  const onChangeHandler = (e) => {
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    })
-  }
+import { useCallback } from "react"
 
-  return {
-    onChangeHandler,
-  }
+const useOnChange = ({ data, setData }) => {
+  const onChangeHandler = useCallback(
+    (e) => {
+      const { name, type, checked, value } = e.target
+      setData((prevData) => ({
+        ...prevData,
+        [name]: type === "checkbox" ? checked : value,
+      }))
+    },
+    [setData],
+  )
+
+  return { onChangeHandler }
 }
 
 export default useOnChange

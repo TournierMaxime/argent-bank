@@ -3,6 +3,7 @@ const initialState = {
   loading: false,
   data: {
     token: null,
+    remember: false,
     firstName: "",
     accountData: [{}],
   },
@@ -17,19 +18,30 @@ const loginReducer = (state = initialState, action) => {
         loading: true,
       }
     case "LOGIN_USER_SUCCESS":
-      localStorage.setItem(
-        "userData",
-        JSON.stringify({
-          token: action.payload.token,
-          firstName: action.payload.firstName,
-        }),
-      )
+      if (action.payload.remember) {
+        localStorage.setItem(
+          "userData",
+          JSON.stringify({
+            token: action.payload.token,
+            firstName: action.payload.firstName,
+          }),
+        )
+      } else {
+        sessionStorage.setItem(
+          "userData",
+          JSON.stringify({
+            token: action.payload.token,
+            firstName: action.payload.firstName,
+          }),
+        )
+      }
       return {
         ...state,
         loading: false,
         data: {
           token: action.payload.token,
           firstName: action.payload.firstName,
+          remember: action.payload.remember,
           accountData: [
             {
               title: "Argent Bank Checking (x8349)",
@@ -59,6 +71,7 @@ const loginReducer = (state = initialState, action) => {
       }
     case "LOGOUT_USER_SUCCESS":
       localStorage.removeItem("userData")
+      sessionStorage.removeItem("userData")
       return {
         ...state,
         isAuthenticated: false,
@@ -72,13 +85,23 @@ const loginReducer = (state = initialState, action) => {
         error: action.payload,
       }
     case "UPDATE_USER_SUCCESS":
-      localStorage.setItem(
-        "userData",
-        JSON.stringify({
-          token: state.data.token,
-          firstName: action.payload.body.firstName,
-        }),
-      )
+      if (action.payload.remember) {
+        localStorage.setItem(
+          "userData",
+          JSON.stringify({
+            token: state.data.token,
+            firstName: action.payload.body.firstName,
+          }),
+        )
+      } else {
+        sessionStorage.setItem(
+          "userData",
+          JSON.stringify({
+            token: state.data.token,
+            firstName: action.payload.body.firstName,
+          }),
+        )
+      }
 
       return {
         ...state,

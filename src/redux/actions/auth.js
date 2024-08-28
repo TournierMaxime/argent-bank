@@ -10,6 +10,7 @@ const login = (data) => async (dispatch) => {
     const payload = {
       token: response.data.body.token,
       firstName: userResponse.data.body.firstName,
+      remember: data.remember,
     }
 
     dispatch({
@@ -34,4 +35,10 @@ const logout = () => async (dispatch) => {
   })
 }
 
-export { login, logout }
+const remember = () => async (dispatch) => {
+  dispatch({
+    type: "SET_REMEMBER",
+  })
+}
+
+export { login, logout, remember }

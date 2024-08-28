@@ -6,9 +6,12 @@ const LoginForm = () => {
   const [data, setData] = useState({
     email: "",
     password: "",
+    remember: false,
   })
 
   const { handleLogin, message } = useHandleAuth({ data })
+
+  console.log(data)
 
   return (
     <section className="sign-in-content">
@@ -16,6 +19,7 @@ const LoginForm = () => {
       <h1>Sign In</h1>
       <form>
         <Input
+          divName={"input-wrapper"}
           htmlFor={"email"}
           label={"Email"}
           type={"text"}
@@ -25,6 +29,7 @@ const LoginForm = () => {
           setData={setData}
         />
         <Input
+          divName={"input-wrapper"}
           htmlFor={"password"}
           label={"Password"}
           type={"password"}
@@ -33,10 +38,16 @@ const LoginForm = () => {
           data={data}
           setData={setData}
         />
-        <div className="input-remember">
-          <input type="checkbox" id="remember-me" />
-          <label htmlFor="remember-me">Remember me</label>
-        </div>
+        <Input
+          divName={"input-remember"}
+          htmlFor={"remember"}
+          label={"Remember me"}
+          type={"checkbox"}
+          id={"remember"}
+          value={data.remember}
+          data={data}
+          setData={setData}
+        />
 
         {message?.error ? <i className="error">{message?.error}</i> : null}
 
