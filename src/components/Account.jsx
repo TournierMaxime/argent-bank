@@ -13,10 +13,12 @@ const Account = () => {
   const token = useSelector((state) => state.login.data.token)
   const accountData = useSelector((state) => state.login.data.accountData)
   const userData = useSelector((state) => state.oneUser.data)
+  const test = useSelector((state) => state.login.data)
+  console.log("test", test)
 
   const [user, setUser] = useState({
-    firstName: "",
-    lastName: "",
+    firstName: userData?.firstName,
+    lastName: userData?.lastName,
   })
 
   const { handleUpdateUser, message } = useUserUpdate({
@@ -43,10 +45,6 @@ const Account = () => {
   }
 
   const handleModal = () => {
-    setUser({
-      firstName: user.firstName || "",
-      lastName: user.lastName || "",
-    })
     setIsModalOpen(true)
   }
 
@@ -59,10 +57,9 @@ const Account = () => {
 
     if (!message?.error) {
       setIsModalOpen(false)
-      dispatch(oneUser(token))
     }
 
-    await handleUpdateUser(e)
+    await handleUpdateUser()
   }
 
   useEffect(() => {
@@ -70,18 +67,8 @@ const Account = () => {
   }, [token, dispatch])
 
   useEffect(() => {
-    if (userData) {
-      setUser({
-        firstName: userData.firstName || "",
-        lastName: userData.lastName || "",
-      })
-    }
-  }, [userData])
-
-  useEffect(() => {
     if (!message?.error) {
       setIsModalOpen(false)
-      dispatch(oneUser(token))
     }
   }, [message?.error])
 

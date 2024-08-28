@@ -24,17 +24,11 @@ const loginReducer = (state = initialState, action) => {
           JSON.stringify({
             token: action.payload.token,
             firstName: action.payload.firstName,
-          }),
-        )
-      } else {
-        sessionStorage.setItem(
-          "userData",
-          JSON.stringify({
-            token: action.payload.token,
-            firstName: action.payload.firstName,
+            remember: action.payload.remember,
           }),
         )
       }
+
       return {
         ...state,
         loading: false,
@@ -85,24 +79,16 @@ const loginReducer = (state = initialState, action) => {
         error: action.payload,
       }
     case "UPDATE_USER_SUCCESS":
-      if (action.payload.remember) {
+      if (state.data.remember) {
         localStorage.setItem(
           "userData",
           JSON.stringify({
             token: state.data.token,
             firstName: action.payload.body.firstName,
-          }),
-        )
-      } else {
-        sessionStorage.setItem(
-          "userData",
-          JSON.stringify({
-            token: state.data.token,
-            firstName: action.payload.body.firstName,
+            remember: state.data.remember,
           }),
         )
       }
-
       return {
         ...state,
         data: {

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { updateUser } from "../redux/actions/user"
+import { updateUser, oneUser } from "../redux/actions/user"
 import useMessage from "./useMessage"
 
 const useUserUpdate = ({ data, setIsModalOpen }) => {
@@ -9,9 +9,7 @@ const useUserUpdate = ({ data, setIsModalOpen }) => {
 
   const { message, setMessage } = useMessage()
 
-  const handleUpdateUser = async (e) => {
-    e.preventDefault()
-
+  const handleUpdateUser = async () => {
     if (!data.firstName || !data.lastName) {
       setIsModalOpen(true)
       return setMessage({
@@ -25,6 +23,7 @@ const useUserUpdate = ({ data, setIsModalOpen }) => {
         success: "Données mise à jour",
         error: "",
       })
+      dispatch(oneUser(token))
     } catch (error) {
       console.log(error)
       setMessage({ error: "Une erreur est survenue lors de la mise à jour." })
