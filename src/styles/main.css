@@ -19,6 +19,7 @@ body {
 
 .bg-dark {
   background-color: #12002b;
+  position: relative;
 }
 
 .sr-only {
@@ -102,6 +103,33 @@ body {
 .hero-content .text {
   margin-bottom: 0;
   font-size: 0.9rem;
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+}
+
+.modal-content {
+  position: absolute;
+  top: 0.5em;
+  background-color: white;
+  padding: 1em;
+  border-radius: 0.5em;
+  width: 80%;
+  box-shadow: 10px 5px 5px black;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  min-width: 50%;
+  max-width: 90%;
+  margin: auto;
+}
+
+.error {
+  color: red;
 }
 
 @media (min-width: 920px) {

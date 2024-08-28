@@ -8,7 +8,7 @@ const LoginForm = () => {
     password: "",
   })
 
-  const { handleLogin } = useHandleAuth({ data })
+  const { handleLogin, message } = useHandleAuth({ data })
 
   return (
     <section className="sign-in-content">
@@ -37,6 +37,8 @@ const LoginForm = () => {
           <input type="checkbox" id="remember-me" />
           <label htmlFor="remember-me">Remember me</label>
         </div>
+
+        {message?.error ? <i className="error">{message?.error}</i> : null}
 
         <button onClick={(e) => handleLogin(e)} className="sign-in-button">
           Sign In

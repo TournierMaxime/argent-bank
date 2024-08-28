@@ -18,6 +18,7 @@ const Account = () => {
     firstName: "",
     lastName: "",
   })
+  console.log(userData)
 
   const { handleUpdateUser, message } = useUserUpdate({
     data: user,
@@ -59,7 +60,7 @@ const Account = () => {
 
     if (!message?.error) {
       setIsModalOpen(false)
-      // dispatch(oneUser(token))
+      dispatch(oneUser(token))
     }
 
     await handleUpdateUser(e)
