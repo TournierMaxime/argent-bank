@@ -71,6 +71,22 @@ const loginReducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
       }
+    case "UPDATE_USER_SUCCESS":
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({
+          token: state.data.token,
+          firstName: action.payload.body.firstName,
+        }),
+      )
+
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          firstName: action.payload.body.firstName,
+        },
+      }
     default:
       return state
   }

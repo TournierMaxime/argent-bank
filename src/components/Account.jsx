@@ -1,23 +1,28 @@
-import React, { Fragment, useEffect } from "react"
+import React, { Fragment, useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import useUserUpdate from "../hooks/useUserUpdate"
 import { oneUser } from "../redux/actions/user"
+import Modal from "./Modal"
+import Input from "./Input"
 
 const Account = () => {
   const dispatch = useDispatch()
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const token = useSelector((state) => state.login.data.token)
   const accountData = useSelector((state) => state.login.data.accountData)
   const userData = useSelector((state) => state.oneUser.data)
 
-  const firstName = userData?.firstName
-  const lastName = userData?.lastName
+  const [user, setUser] = useState({
+    firstName: "",
+    lastName: "",
+  })
 
-  const { handleUpdateUser } = useUserUpdate({ data: userData })
-
-  useEffect(() => {
-    dispatch(oneUser(token))
-  }, [token, dispatch])
+  const { handleUpdateUser, message } = useUserUpdate({
+    data: user,
+    setIsModalOpen,
+  })
 
   const fetchData = () => {
     return (
@@ -37,20 +42,100 @@ const Account = () => {
     )
   }
 
+  const handleModal = () => {
+    setUser({
+      firstName: user.firstName || "",
+      lastName: user.lastName || "",
+    })
+    setIsModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    if (!message?.error) {
+      setIsModalOpen(false)
+      // dispatch(oneUser(token))
+    }
+
+    await handleUpdateUser(e)
+  }
+
+  useEffect(() => {
+    dispatch(oneUser(token))
+  }, [token, dispatch])
+
+  useEffect(() => {
+    if (userData) {
+      setUser({
+        firstName: userData.firstName || "",
+        lastName: userData.lastName || "",
+      })
+    }
+  }, [userData])
+
+  useEffect(() => {
+    if (!message?.error) {
+      setIsModalOpen(false)
+      dispatch(oneUser(token))
+    }
+  }, [message?.error])
+
   return (
     <Fragment>
       <div className="header">
         <h1>
           Welcome back
           <br />
-          {firstName} {lastName}!
+          {userData.firstName} {userData.lastName}!
         </h1>
-        <button className="edit-button" onClick={handleUpdateUser}>
+        <button className="edit-button" onClick={() => handleModal()}>
           Edit Name
         </button>
       </div>
       <h2 className="sr-only">Accounts</h2>
       {fetchData()}
+
+      <Modal isOpen={isModalOpen}>
+        <h2>Edit Name</h2>
+        <form onSubmit={handleSubmit}>
+          <Input
+            htmlFor={"firstName"}
+            label={"Prénom"}
+            type={"text"}
+            id={"firstName"}
+            value={user.firstName}
+            data={user}
+            setData={setUser}
+          />
+          <Input
+            htmlFor={"lastName"}
+            label={"Nom"}
+            type={"text"}
+            id={"lastName"}
+            value={user.lastName}
+            data={user}
+            setData={setUser}
+          />
+          {message?.error ? <i className="error">{message?.error}</i> : null}
+          <div className="form-buttons">
+            <button type="submit" className="edit-button">
+              Save
+            </button>
+            <button
+              type="button"
+              className="edit-button"
+              onClick={() => closeModal()}
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </Modal>
     </Fragment>
   )
 }
