@@ -10,7 +10,7 @@ const useHandleAuth = ({ data }) => {
     e.preventDefault()
     try {
       await dispatch(login(data))
-      navigate("/user")
+      navigate("/profile")
     } catch (error) {
       console.log(error)
     }

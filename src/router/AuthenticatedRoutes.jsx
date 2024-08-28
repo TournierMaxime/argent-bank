@@ -12,7 +12,7 @@ const AuthenticatedRoutes = () => {
       element: <Home />,
     },
     {
-      path: "/user",
+      path: "/profile",
       name: "User",
       element: <User />,
     },

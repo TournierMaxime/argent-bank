@@ -12,7 +12,7 @@ const CommonRoutes = () => {
       element: <Home />,
     },
     {
-      path: "/sign-in",
+      path: "/login",
       name: "Login",
       element: <Login />,
     },
