@@ -21,7 +21,7 @@ const Nav = () => {
       <div>
         {isAuthenticated ? (
           <Fragment>
-            <a className="main-nav-item" href="/user">
+            <a className="main-nav-item" href="/profile">
               <i className="fa fa-user-circle"></i>
               {firstName}
             </a>
@@ -35,7 +35,7 @@ const Nav = () => {
             </a>
           </Fragment>
         ) : (
-          <a className="main-nav-item" href="/sign-in">
+          <a className="main-nav-item" href="/login">
             <i className="fa fa-user-circle"></i>
             Sign In
           </a>
