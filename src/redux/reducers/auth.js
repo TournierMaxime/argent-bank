@@ -18,8 +18,17 @@ const loginReducer = (state = initialState, action) => {
         loading: true,
       }
     case "LOGIN_USER_SUCCESS":
-      if (action.payload.remember) {
+      if (action.payload.remember === true) {
         localStorage.setItem(
+          "userData",
+          JSON.stringify({
+            token: action.payload.token,
+            firstName: action.payload.firstName,
+            remember: action.payload.remember,
+          }),
+        )
+      } else {
+        sessionStorage.setItem(
           "userData",
           JSON.stringify({
             token: action.payload.token,
@@ -81,6 +90,15 @@ const loginReducer = (state = initialState, action) => {
     case "UPDATE_USER_SUCCESS":
       if (state.data.remember) {
         localStorage.setItem(
+          "userData",
+          JSON.stringify({
+            token: state.data.token,
+            firstName: action.payload.body.firstName,
+            remember: state.data.remember,
+          }),
+        )
+      } else {
+        sessionStorage.setItem(
           "userData",
           JSON.stringify({
             token: state.data.token,

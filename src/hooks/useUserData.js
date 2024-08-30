@@ -1,7 +1,8 @@
 const useUserData = ({ onLoginSuccess }) => {
   const getUserData = () => {
     try {
-      const userData = localStorage.getItem("userData")
+      const userData =
+        localStorage.getItem("userData") || sessionStorage.getItem("userData")
       if (userData) {
         const parsedData = JSON.parse(userData)
         onLoginSuccess(parsedData)
