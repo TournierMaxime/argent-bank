@@ -57,10 +57,6 @@ body {
   margin-right: 0.5rem;
 }
 
-.fa-user-circle {
-  margin-right: 0.3em;
-}
-
 .main-nav-item:hover {
   text-decoration: underline;
 }
@@ -319,5 +315,17 @@ body {
 
   .transaction-button {
     width: 200px;
+  }
+}
+
+@media (max-width: 320px) {
+  .main-nav-logo-image {
+    width: 100px;
+  }
+}
+
+@media (max-width: 375px) and (min-width: 321px) {
+  .main-nav-logo-image {
+    width: 125px;
   }
 }
