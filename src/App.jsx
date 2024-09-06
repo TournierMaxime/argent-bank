@@ -1,21 +1,12 @@
 import { BrowserRouter as Router, Routes } from "react-router-dom"
 import CommonRoutes from "./router/CommonRoutes"
 import AuthenticatedRoutes from "./router/AuthenticatedRoutes"
-import React, { Fragment, useEffect } from "react"
+import React, { Fragment } from "react"
 import { connect, Provider } from "react-redux"
 import { store, persistor } from "./redux/store"
-import useUserData from "./hooks/useUserData"
 import { PersistGate } from "redux-persist/integration/react"
 
-function App({ isAuthenticated, onLoginSuccess }) {
-  const { getUserData } = useUserData({
-    onLoginSuccess,
-  })
-
-  useEffect(() => {
-    getUserData()
-  }, [])
-
+function App({ isAuthenticated }) {
   return (
     <Fragment>
       <Router>
