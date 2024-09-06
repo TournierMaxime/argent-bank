@@ -4,7 +4,6 @@ const initialState = {
   data: {
     token: null,
     remember: false,
-    firstName: "",
     accountData: [{}],
   },
   error: null,
@@ -20,20 +19,16 @@ const loginReducer = (state = initialState, action) => {
     case "LOGIN_USER_SUCCESS":
       if (action.payload.remember === true) {
         localStorage.setItem(
-          "userData",
+          "token",
           JSON.stringify({
             token: action.payload.token,
-            firstName: action.payload.firstName,
-            remember: action.payload.remember,
           }),
         )
       } else {
         sessionStorage.setItem(
-          "userData",
+          "token",
           JSON.stringify({
             token: action.payload.token,
-            firstName: action.payload.firstName,
-            remember: action.payload.remember,
           }),
         )
       }
@@ -43,7 +38,6 @@ const loginReducer = (state = initialState, action) => {
         loading: false,
         data: {
           token: action.payload.token,
-          firstName: action.payload.firstName,
           remember: action.payload.remember,
           accountData: [
             {
@@ -73,8 +67,8 @@ const loginReducer = (state = initialState, action) => {
         error: action.payload,
       }
     case "LOGOUT_USER_SUCCESS":
-      localStorage.removeItem("userData")
-      sessionStorage.removeItem("userData")
+      localStorage.removeItem("token")
+      sessionStorage.removeItem("token")
       return {
         ...state,
         isAuthenticated: false,
@@ -88,30 +82,10 @@ const loginReducer = (state = initialState, action) => {
         error: action.payload,
       }
     case "UPDATE_USER_SUCCESS":
-      if (state.data.remember) {
-        localStorage.setItem(
-          "userData",
-          JSON.stringify({
-            token: state.data.token,
-            firstName: action.payload.body.firstName,
-            remember: state.data.remember,
-          }),
-        )
-      } else {
-        sessionStorage.setItem(
-          "userData",
-          JSON.stringify({
-            token: state.data.token,
-            firstName: action.payload.body.firstName,
-            remember: state.data.remember,
-          }),
-        )
-      }
       return {
         ...state,
         data: {
           ...state.data,
-          firstName: action.payload.body.firstName,
         },
       }
     default:

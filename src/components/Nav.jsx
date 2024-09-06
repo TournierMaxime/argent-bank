@@ -1,11 +1,20 @@
-import React, { Fragment } from "react"
+import React, { Fragment, useEffect } from "react"
 import Logo from "../assets/images/argentBankLogo.png"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import useHandleAuth from "../hooks/useHandleAuth"
+import { oneUser } from "../redux/actions/user"
 
 const Nav = () => {
+  const dispatch = useDispatch()
   const isAuthenticated = useSelector((state) => state.login.isAuthenticated)
-  const firstName = useSelector((state) => state.login.data.firstName)
+  const token = useSelector((state) => state.login.data.token)
+  const user = useSelector((state) => state.oneUser.data)
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      dispatch(oneUser(token))
+    }
+  }, [isAuthenticated])
 
   const { handleLogout } = useHandleAuth({ data: null })
   return (
@@ -23,7 +32,7 @@ const Nav = () => {
           <Fragment>
             <a className="main-nav-item" href="/profile">
               <i className="fa fa-user-circle"></i>
-              {firstName}
+              {user?.firstName}
             </a>
             <a
               className="main-nav-item"

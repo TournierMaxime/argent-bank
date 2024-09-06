@@ -13,8 +13,6 @@ const Account = () => {
   const token = useSelector((state) => state.login.data.token)
   const accountData = useSelector((state) => state.login.data.accountData)
   const userData = useSelector((state) => state.oneUser.data)
-  const test = useSelector((state) => state.login.data)
-  console.log("test", test)
 
   const [user, setUser] = useState({
     firstName: userData?.firstName,
@@ -71,6 +69,15 @@ const Account = () => {
       setIsModalOpen(false)
     }
   }, [message?.error])
+
+  useEffect(() => {
+    if (userData) {
+      setUser({
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+      })
+    }
+  }, [userData])
 
   return (
     <Fragment>

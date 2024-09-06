@@ -2,7 +2,7 @@ const useUserData = ({ onLoginSuccess }) => {
   const getUserData = () => {
     try {
       const userData =
-        localStorage.getItem("userData") || sessionStorage.getItem("userData")
+        localStorage.getItem("token") || sessionStorage.getItem("token")
       if (userData) {
         const parsedData = JSON.parse(userData)
         onLoginSuccess(parsedData)
