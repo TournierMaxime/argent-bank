@@ -11,8 +11,6 @@ const LoginForm = () => {
 
   const { handleLogin, message } = useHandleAuth({ data })
 
-  console.log(data)
-
   return (
     <section className="sign-in-content">
       <i className="fa fa-user-circle sign-in-icon"></i>

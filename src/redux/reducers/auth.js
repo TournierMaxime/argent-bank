@@ -17,22 +17,6 @@ const loginReducer = (state = initialState, action) => {
         loading: true,
       }
     case "LOGIN_USER_SUCCESS":
-      if (action.payload.remember === true) {
-        localStorage.setItem(
-          "token",
-          JSON.stringify({
-            token: action.payload.token,
-          }),
-        )
-      } else {
-        sessionStorage.setItem(
-          "token",
-          JSON.stringify({
-            token: action.payload.token,
-          }),
-        )
-      }
-
       return {
         ...state,
         loading: false,
@@ -67,8 +51,6 @@ const loginReducer = (state = initialState, action) => {
         error: action.payload,
       }
     case "LOGOUT_USER_SUCCESS":
-      localStorage.removeItem("token")
-      sessionStorage.removeItem("token")
       return {
         ...state,
         isAuthenticated: false,

@@ -1,22 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit"
 import { thunk as thunkMiddleware } from "redux-thunk"
-import { authReducers, userReducers } from "./index"
+import rootReducer from "./index" // Importer le rootReducer combiné
+import { persistStore } from "redux-persist"
 
-const createBaseStore = (reducers) => {
-  const store = configureStore({
-    reducer: reducers,
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware({
-        immutableCheck: false,
-        serializableCheck: false,
-      }).concat(thunkMiddleware),
-  })
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      immutableCheck: false,
+      serializableCheck: false,
+    }).concat(thunkMiddleware),
+})
 
-  return store
-}
+const persistor = persistStore(store)
 
-const rootReducer = { ...authReducers, ...userReducers }
-
-const store = createBaseStore(rootReducer)
-
-export default store
+export { store, persistor }
