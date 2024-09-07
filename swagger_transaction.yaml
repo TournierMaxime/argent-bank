@@ -1,0 +1,152 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: API de gestion des transactions
+  description: API pour gérer les transactions des utilisateurs, y compris la visualisation, l'ajout, la modification et la suppression des transactions.
+servers:
+  - url: localhost:3001/api/v1
+    description: Serveur principal
+    
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - BearerAuth: []
+
+paths:
+
+  /transactions/search:
+    post:
+      summary: Récupère toutes les transactions pour le mois en cours, groupées par compte
+      description: |
+        Cet endpoint permet aux utilisateurs de visualiser toutes leurs transactions pour le mois en cours. Les transactions sont groupées par compte.
+      parameters:
+        - in: query
+          name: month
+          schema:
+            type: string
+            example: '2024-08'
+          required: false
+          description: Le mois pour lequel récupérer les transactions, au format 'YYYY-MM'. Par défaut, le mois en cours est utilisé.
+      responses:
+        '200':
+          description: Liste des transactions du mois en cours, groupées par compte
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    accountId:
+                      type: string
+                      description: ID du compte auquel appartient la transaction
+                    transactions:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          transactionId:
+                            type: string
+                            description: ID unique de la transaction
+                          date:
+                            type: string
+                            format: date-time
+                            description: Date de la transaction
+                          amount:
+                            type: number
+                            format: double
+                            description: Montant de la transaction
+                          description:
+                            type: string
+                            description: Description de la transaction
+        '400':
+          description: Requête incorrecte
+        '401':
+          description: Non autorisé (Bearer Token manquant ou invalide)
+        '500':
+          description: Erreur serveur
+
+  /transactions/{transactionId}:
+    get:
+      summary: Récupère les détails d'une transaction spécifique
+      description: Cet endpoint permet de visualiser les détails d'une transaction donnée.
+      parameters:
+        - in: path
+          name: transactionId
+          schema:
+            type: string
+          required: true
+          description: ID unique de la transaction à récupérer
+      responses:
+        '200':
+          description: Détails de la transaction
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transactionId:
+                    type: string
+                    description: ID unique de la transaction
+                  accountId:
+                    type: string
+                    description: ID du compte auquel appartient la transaction
+                  date:
+                    type: string
+                    format: date-time
+                    description: Date de la transaction
+                  amount:
+                    type: number
+                    format: double
+                    description: Montant de la transaction
+                  description:
+                    type: string
+                    description: Description de la transaction
+                  category:
+                    type: string
+                    description: Catégorie de la transaction
+        '401':
+          description: Non autorisé (Bearer Token manquant ou invalide)
+        '404':
+          description: Transaction non trouvée
+        '500':
+          description: Erreur serveur
+    put:
+      summary: Modifie les données d'une transaction existante
+      description: Cet endpoint permet de modifier une partie des données d'une transaction existante.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  description: Nouvelle description de la transaction
+                category:
+                  type: string
+                  description: Nouvelle catégorie de la transaction
+      parameters:
+        - in: path
+          name: transactionId
+          schema:
+            type: string
+          required: true
+          description: ID unique de la transaction à supprimer
+      responses:
+        '200':
+          description: Transaction modifiée avec succès
+        '400':
+          description: Données de requête incorrectes
+        '401':
+          description: Non autorisé (Bearer Token manquant ou invalide)
+        '404':
+          description: Transaction non trouvée
+        '500':
+          description: Erreur serveur
